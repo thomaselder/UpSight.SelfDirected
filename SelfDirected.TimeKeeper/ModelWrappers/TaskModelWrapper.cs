@@ -2,9 +2,11 @@
 using SelfDirected.TimeKeeper.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation.Results;
 
 namespace SelfDirected.TimeKeeper.ModelWrappers
 {
@@ -17,6 +19,14 @@ namespace SelfDirected.TimeKeeper.ModelWrappers
         {
             this.taskModel = taskModel;
             this.validator = validator;
+            
+            var validationResult = Validate();
+            if(!validationResult.IsValid)
+            {
+                var errorMessages = string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage));
+                //throw new FluentValidation.ValidationException(errorMessages);
+            }
+
         }
 
         public int Id
@@ -109,11 +119,11 @@ namespace SelfDirected.TimeKeeper.ModelWrappers
             }
         }
 
-        public bool IsValid => validator.Validate(taskModel).IsValid;
+        public bool IsValid => Validate().IsValid;
 
-        private void Validate()
+        public FluentValidation.Results.ValidationResult Validate()
         {
-            validator.ValidateAndThrow(taskModel);
+            return validator.Validate(taskModel);
         }
     }
 }
