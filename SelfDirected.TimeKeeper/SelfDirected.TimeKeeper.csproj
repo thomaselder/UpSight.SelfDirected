@@ -19,6 +19,8 @@
 
 	<ItemGroup>
 	  <PackageReference Include="FluentValidation" Version="11.5.2" />
+	  <PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
+	  <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.5" />
 	</ItemGroup>
 
 </Project>

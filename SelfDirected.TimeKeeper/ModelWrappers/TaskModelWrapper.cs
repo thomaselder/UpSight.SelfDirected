@@ -7,18 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation.Results;
+using SelfDirected.TimeKeeper.Validators;
 
 namespace SelfDirected.TimeKeeper.ModelWrappers
 {
     public class TaskModelWrapper : ITaskModelWrapper
     {
         private readonly TaskModel taskModel;
-        private readonly IValidator<TaskModel> validator;
+        private readonly TaskValidator validator;
 
         public TaskModelWrapper(TaskModel taskModel, IValidator<TaskModel> validator)
         {
             this.taskModel = taskModel;
-            this.validator = validator;
+            this.validator = new TaskValidator();
             
             var validationResult = Validate();
             if(!validationResult.IsValid)

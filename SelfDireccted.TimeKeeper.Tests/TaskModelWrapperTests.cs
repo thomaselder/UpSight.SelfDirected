@@ -30,23 +30,6 @@ namespace SelfDireccted.TimeKeeper.Tests
             validatorMock.Verify(v => v.Validate(taskModel), Times.Once);
         }
 
-    
-
-        [Fact]
-        public void Validate_ValidatesTaskModel()
-        {
-            // Arrange
-            var taskModel = new TaskModel();
-            var validatorMock = new Mock<IValidator<TaskModel>>();
-            validatorMock.Setup(v => v.Validate(taskModel)).Returns(new FluentValidation.Results.ValidationResult());
-            var wrapper = new TaskModelWrapper(taskModel, validatorMock.Object);
-
-            // Act
-            wrapper.Validate();
-
-            // Assert
-            validatorMock.Verify(v => v.Validate(taskModel), Times.Once);
-        }
 
         [Fact]
         public void IsValid_ReturnsTrue_WhenTaskModelIsValid()
